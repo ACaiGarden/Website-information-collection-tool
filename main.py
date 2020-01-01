@@ -30,6 +30,6 @@ class main():
         n.scan()
         n.print_result()
 
-
+print("123123")
 if __name__ == '__main__':
     m = main()
