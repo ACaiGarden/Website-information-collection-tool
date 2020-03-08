@@ -24,22 +24,12 @@ class NmPortScanner():
         except:
             pass
 
+
+
 if __name__ == '__main__':
-    s = NmPortScanner('180.97.83.149')
-    s.scan()
-    s.print_result()
-
-'''
-host = 'www.china-qimei.com'
-ip_addr = socket.getaddrinfo(host, 'http')
-print(ip_addr[0][4][0])
-
-nm=nmap.PortScanner()
-nm.scan('127.0.0.1',  arguments='-F')
-print(nm.command_line())
-print(nm['127.0.0.1']['tcp'].keys())
-
-for x in nm['127.0.0.1']['tcp'].keys():
-    print(x, ': ', nm['127.0.0.1']['tcp'][x]['state'])
-
-'''
+    try:
+        s = NmPortScanner('183.232.231.172')
+        s.scan()
+        s.print_result()
+    except:
+        print("Port Scanner ERROR!")

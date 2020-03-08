@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 
 class WhoIs():
     def __init__(self, url):
-        self.url = url
-        self.dictionary = {}
+        self.url = 'http://whois.chinaz.com/' + url
+        self.get_Web()
 
     def get_Web(self):
         r = requests.get(self.url)
@@ -30,11 +30,13 @@ class WhoIs():
         x = soup.find("ul", class_="WhoisLeft")
         #print(x)
         y = x.find_all("li")
-        print(len(y))
         for k in y:
-            div_content = k.find_all("div")
-            print(div_content[0].string)
-            print(div_content[1].span.string)
+            try:
+                div_content = k.find_all("div")
+                print(div_content[0].string)
+                print(div_content[1].span.string)
+            except:
+                pass
         '''
         y = x.find_all("li")
         for list in y:
@@ -47,5 +49,4 @@ class WhoIs():
 
 
 if __name__ == '__main__':
-    w = WhoIs('http://whois.chinaz.com/agefans.tv')
-    w.get_Web()
+    w = WhoIs("www.honglian8.com/index.asp")

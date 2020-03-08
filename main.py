@@ -5,8 +5,8 @@ class main():
     def __init__(self):
         self.domain = ''                            #目标网址
         self.ipaddress = self.get_domain_to_ip()    #由目标网址得到的IP地址
-        self.get_port()                             #调用端口扫描函数
-        self.get_dir()                              #调用目录扫描函数
+        #self.get_port()                             #调用端口扫描函数
+        #self.get_dir()                              #调用目录扫描函数
 
     def get_domain_to_ip(self):
         self.domain = input("Please input the domain(Without 'http://'):")
@@ -30,6 +30,6 @@ class main():
         n.scan()
         n.print_result()
 
-print("123123")
+
 if __name__ == '__main__':
     m = main()
