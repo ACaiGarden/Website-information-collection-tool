@@ -1,10 +1,13 @@
+#using url
 import requests
 from bs4 import BeautifulSoup
+import WriteInFile
 
 class WhoIs():
-    def __init__(self, url):
+    def __init__(self, url, filename):
+        self.filename = filename
         self.url = 'http://whois.chinaz.com/' + url
-        self.get_Web()
+        #self.get_Web()
 
     def get_Web(self):
         r = requests.get(self.url)
@@ -35,6 +38,8 @@ class WhoIs():
                 div_content = k.find_all("div")
                 print(div_content[0].string)
                 print(div_content[1].span.string)
+                content = div_content[0].string + ':' + div_content[1].span.string
+                WriteInFile.WriteIn(self.filename, content)
             except:
                 pass
         '''
@@ -49,4 +54,5 @@ class WhoIs():
 
 
 if __name__ == '__main__':
-    w = WhoIs("www.honglian8.com/index.asp")
+    w = WhoIs("www.honglian8.com/index.asp", 'filename.txt')
+    w.get_Web()

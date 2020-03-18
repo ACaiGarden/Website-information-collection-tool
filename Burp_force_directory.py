@@ -1,4 +1,5 @@
-#Burp_force_directory by xuxu
+#using url
+
 import WriteInFile
 import requests
 import threading
@@ -7,7 +8,8 @@ import time
 from urllib.parse import urlparse
 
 class Dir_Scanner():
-    def __init__(self, url):
+    def __init__(self, url, filename):
+        self.filename = filename
         self.url = self.Urlparse(url)
         self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                                       'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36'}
@@ -80,8 +82,8 @@ class Dir_Scanner():
                 else:
                     self.get_url.append(test_url)
                 try:
-                    filename = self.url[7:] + '.txt'
-                    WriteInFile.WriteIn(filename, test_url)
+                    #filename = self.url[7:] + '.txt'
+                    WriteInFile.WriteIn(self.filename, test_url)
                     '''
                     这里要把test_url加入到存储位置中
                     '''
@@ -111,5 +113,5 @@ class Dir_Scanner():
 
 if __name__ == '__main__':
     url = 'http://www.baidu.com'
-    Web_scanner = Dir_Scanner(url)
+    Web_scanner = Dir_Scanner(url, 'filename.txt')
     Web_scanner.more_threads()

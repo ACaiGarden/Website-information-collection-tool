@@ -1,8 +1,10 @@
+#using IP
 import nmap
 import WriteInFile
 
 class NmPortScanner():
-    def __init__(self, ip_addr):
+    def __init__(self, ip_addr, filename):
+        self.filename = filename        #保存的文件名
         self.ipaddress = ip_addr        #ip地址
         self.nm = nmap.PortScanner()    #初始化nmap
 
@@ -19,8 +21,8 @@ class NmPortScanner():
                 message = str(x) + ': ' + str(self.nm[self.ipaddress]['tcp'][x]['state'])
                 print(message)
                 #print(x, ': ', self.nm[self.ipaddress]['tcp'][x]['state'])
-                filename = self.ipaddress + '.txt'
-                WriteInFile.WriteIn(filename, message)
+                #filename = self.ipaddress + '.txt'
+                WriteInFile.WriteIn(self.filename, message)
         except:
             pass
 
@@ -28,7 +30,7 @@ class NmPortScanner():
 
 if __name__ == '__main__':
     try:
-        s = NmPortScanner('183.232.231.172')
+        s = NmPortScanner('183.232.231.172', 'filename.txt')
         s.scan()
         s.print_result()
     except:

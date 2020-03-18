@@ -1,16 +1,17 @@
 #! /usr/bin/env python
 #coding=utf-8
-#whatweb cms指纹识别api示例
-#http://whatweb.bugscaner.com/
-#进行json压缩传输,经测试,压缩后可节省将近5-10倍的宽带
+#using url
 
 import requests
 import zlib
 import json
+import WriteInFile
 
 class CMS_Check():
-    def __init__(self, url):
-        self.whatweb("http://" + url)
+    def __init__(self, url, filename):
+        self.url = "http://" + url
+        self.whatweb(self.url)
+        self.filename = filename
         self.print_result()
 
     def whatweb(self, url):
@@ -31,7 +32,9 @@ class CMS_Check():
         print(u"识别结果")
         print(request.json())
         for x in request.json():
-            print(x, ":", request.json()[x][0])
+            content = x + ":" + request.json()[x][0]
+            print(content)
+            WriteInFile.WriteIn(self.filename, content)
 
 if __name__ == '__main__':
-    c = CMS_Check("www.honglian8.com")
+    c = CMS_Check("www.honglian8.com", "filename.txt")
