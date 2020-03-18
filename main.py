@@ -11,17 +11,18 @@ import argparse
 
 class main():
     def __init__(self):
-        self.domain = input("Please input the domain(Without 'http://'):")#目标网址
-        self.ipaddress = self.get_domain_to_ip()    #由目标网址得到的IP地址
-        self.filename = self.get_filename(self.domain)  #从目标网址提取关键词做文件名
+        self.commend_prise()
+        #self.domain = input("Please input the domain(Without 'http://'):")#目标网址
+        #self.ipaddress = self.get_domain_to_ip(self.domain)    #由目标网址得到的IP地址
+        #self.filename = self.get_filename(self.domain)  #从目标网址提取关键词做文件名
 
-    def get_domain_to_ip(self):
+    def get_domain_to_ip(self, domain):
         '''
         这里往后可以加正则表达式
         '''
         try:
-            ip_addr = socket.getaddrinfo(self.domain, 'http')
-            print(ip_addr[0][4][0])
+            ip_addr = socket.getaddrinfo(domain, 'http')
+            #print(ip_addr[0][4][0])
             return ip_addr[0][4][0]
         except:
             print('Failed domain!')
@@ -44,22 +45,24 @@ class main():
         parser.add_argument('-w', '--whois', action='store_true', help="Get whois information")
         parser.add_argument('-c', '--cms', action='store_true', help="Get CMS type")
         parser.add_argument('-s', '--sub', action='store_true', help="Search subdomain")
-        parser.add_argument('-t', '--test', action='append')
-        parser.add_argument('url')
+        parser.add_argument('url', help="Please input without 'http://'")
 
         args = parser.parse_args()
         if args.url:
-            pass
+            self.domain = args.url
+            self.ipaddress = self.get_domain_to_ip(self.domain)
+            self.filename = self.get_filename(self.domain)
+            print(self.domain, ":", self.ipaddress)
         if args.dir:
-            print("dir is OK!")
+            self.get_dir()
         if args.port:
-            print("port is OK!")
+            self.get_port()
         if args.whois:
-            print("whois is OK!")
+            self.get_whois()
         if args.cms:
-            print("cms is OK!")
+            self.get_cms()
         if args.sub:
-            print("sub is OK!")
+            self.get_subdomain()
 
 
     def get_dir(self):

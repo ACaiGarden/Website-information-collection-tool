@@ -1,6 +1,6 @@
 #using url
 
-import WriteInFile
+from WriteIn import writeinmanger
 import requests
 import threading
 import os
@@ -18,6 +18,7 @@ class Dir_Scanner():
         self.get_url_len = 0    #获取到的有效url数量（可重复）
         self.len = 0            #获取到的有效url数量（不重复）
         self.threads_max = self.get_threads()   # 最大线程数
+        self.w = writeinmanger()
 
     def Urlparse(self, url):
         '''
@@ -83,7 +84,8 @@ class Dir_Scanner():
                     self.get_url.append(test_url)
                 try:
                     #filename = self.url[7:] + '.txt'
-                    WriteInFile.WriteIn(self.filename, test_url)
+                    self.w.writeinfile(self.filename, test_url)
+                    self.w.writeinsql_dir(self.filename, test_url)
                     '''
                     这里要把test_url加入到存储位置中
                     '''
@@ -113,5 +115,5 @@ class Dir_Scanner():
 
 if __name__ == '__main__':
     url = 'http://www.baidu.com'
-    Web_scanner = Dir_Scanner(url, 'filename.txt')
+    Web_scanner = Dir_Scanner(url, 'filename')
     Web_scanner.more_threads()

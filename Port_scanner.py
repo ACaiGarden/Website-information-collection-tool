@@ -1,12 +1,13 @@
 #using IP
 import nmap
-import WriteInFile
+from WriteIn import writeinmanger
 
 class NmPortScanner():
     def __init__(self, ip_addr, filename):
         self.filename = filename        #保存的文件名
         self.ipaddress = ip_addr        #ip地址
         self.nm = nmap.PortScanner()    #初始化nmap
+        self.w = writeinmanger()
 
     def scan(self):
         '''
@@ -22,7 +23,8 @@ class NmPortScanner():
                 print(message)
                 #print(x, ': ', self.nm[self.ipaddress]['tcp'][x]['state'])
                 #filename = self.ipaddress + '.txt'
-                WriteInFile.WriteIn(self.filename, message)
+                self.w.writeinfile(self.filename, message)
+                self.w.writeinsql_port(self.filename, str(x), str(self.nm[self.ipaddress]['tcp'][x]['state']))
         except:
             pass
 
@@ -30,7 +32,7 @@ class NmPortScanner():
 
 if __name__ == '__main__':
     try:
-        s = NmPortScanner('183.232.231.172', 'filename.txt')
+        s = NmPortScanner('183.232.231.172', 'filename')
         s.scan()
         s.print_result()
     except:
