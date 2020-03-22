@@ -16,21 +16,6 @@ class WhoIs():
         soup = BeautifulSoup(r.text, 'html.parser')
         #for x in range(13, len(soup.find_all("span"))):
         #    print(soup.find_all("span")[x].string)
-        '''
-        for x in soup.find_all("div", class_="fl WhLeList-left"):
-            print(x.string)
-        for x in soup.find_all("div", class_="fr WhLeList-right"):
-            try:
-                print(x.string)
-            except:
-                pass
-        
-        for x, y in soup.find_all("div", class_="fl WhLeList-left"), soup.find_all("div", class_="fr WhLeList-right"):
-            try:
-                print(x.string, y.string)
-            except:
-                pass
-        '''
         try:
             x = soup.find("ul", class_="WhoisLeft")
             #print(x)

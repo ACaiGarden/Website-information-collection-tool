@@ -7,11 +7,12 @@ from Subdomain_search import Subdomain
 from CMS_check import CMS_Check
 
 import argparse
+import pymysql
 
 
 class main():
     def __init__(self):
-        self.commend_prise()
+        self.commend_parse()
         #self.domain = input("Please input the domain(Without 'http://'):")#目标网址
         #self.ipaddress = self.get_domain_to_ip(self.domain)    #由目标网址得到的IP地址
         #self.filename = self.get_filename(self.domain)  #从目标网址提取关键词做文件名
@@ -37,7 +38,7 @@ class main():
             name = 'None_name'
         return name
 
-    def commend_prise(self):
+    def commend_parse(self):
         parser = argparse.ArgumentParser(description="information collecting tool")
 
         parser.add_argument('-d', '--dir', action='store_true', help="Burp force directory")
@@ -86,6 +87,17 @@ class main():
     def get_cms(self):
         c = CMS_Check(self.domain, self.ipaddress)
 
+
+class main_sql():
+    def __init__(self):
+        self.db = pymysql.connect("localhost", "root", "root", "Web_information")
+
+    def search(self, name):
+        cursor = self.db.cursor()
+        sql = "SELECT * FROM "
+
+    def delete(self, name):
+        pass
 
 if __name__ == '__main__':
     m = main()

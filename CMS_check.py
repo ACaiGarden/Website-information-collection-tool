@@ -41,4 +41,4 @@ class CMS_Check():
             self.w.writeinsql_cms(self.filename, x, request.json()[x][0])
 
 if __name__ == '__main__':
-    c = CMS_Check("www.honglian8.com", "honglian8")
+    c = CMS_Check("www.honglian8.com", "filename")
