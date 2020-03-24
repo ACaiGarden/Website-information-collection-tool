@@ -18,6 +18,7 @@ class main_sql():
         except:
             print("Connect false!")
             while True:
+                # 输入账号密码，直到成功登录。
                 username = input("Please input the username:")
                 password = input("Please input the password:")
                 try:
@@ -33,7 +34,15 @@ class main_sql():
 
     def command_parse(self):
         parser = argparse.ArgumentParser(description="information database!")
-        
+        group = parser.add_mutually_exclusive_group()
+        group.add_argument("-s", "--search", help="search information from the database")
+        group.add_argument("-d", "--delete", help="delete information from the database")
+        args = parser.parse_args()
+
+        if args.search:
+            self.search(args.search)
+        if args.delete:
+            self.delete(args.delete)
 
 
     def search(self, name):
@@ -72,3 +81,4 @@ if __name__ == "__main__":
     #m.search('filename.txt')
     #m.delete('filename.txt')
     #m.login()
+    m.command_parse()

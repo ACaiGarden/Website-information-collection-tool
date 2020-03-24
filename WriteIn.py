@@ -1,8 +1,13 @@
 import pymysql
+from configparser import ConfigParser
 
 class writeinmanger():
     def __init__(self):
-        self.db = pymysql.connect("localhost", "root", "root", "Web_information")
+        cfg = ConfigParser()
+        cfg.read('config.ini')
+        username = cfg.get('mysql', 'username')
+        password = cfg.get('mysql', 'password')
+        self.db = pymysql.connect("localhost", username, password, "Web_information")
 
     def writeinfile(self, filename, content):
         filename = filename + '.txt'
