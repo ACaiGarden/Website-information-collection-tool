@@ -5,6 +5,7 @@ from Burp_force_directory import Dir_Scanner
 from Who_is import WhoIs
 from Subdomain_search import Subdomain
 from CMS_check import CMS_Check
+from sensitive_file import sensitive_file_scanner
 
 import argparse
 import pymysql
@@ -88,7 +89,11 @@ class main():
         s.get_Web()
 
     def get_cms(self):
-        c = CMS_Check(self.domain, self.ipaddress)
+        c = CMS_Check(self.domain, self.filename)
+
+    def get_file(self):
+        s = sensitive_file_scanner(self.domain, self.filename)
+        s.scanner()
 
 
 class main_sql():
@@ -200,6 +205,7 @@ def choose():
     parser.add_argument('-w', '--whois', action='store_true', help="Get whois information")
     parser.add_argument('-c', '--cms', action='store_true', help="Get CMS type")
     parser.add_argument('-s', '--sub', action='store_true', help="Search subdomain")
+    parser.add_argument('-f', '--file', action='store_true', help="Sensitive file")
     parser.add_argument('-u', '--url', help="Please input without 'http://'")
 
     group = parser.add_mutually_exclusive_group()
@@ -219,6 +225,8 @@ def choose():
             m.get_cms()
         if args.sub:
             m.get_subdomain()
+        if args.file:
+            m.get_file()
     elif not args.url and (args.dir or args.port or args.whois or args.sub or args.cms):
         print("please input the url!")
     if args.search:

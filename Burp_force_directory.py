@@ -60,7 +60,6 @@ class Dir_Scanner():
         with open(os.getcwd() + r'\Burp_force_directory\dictionary\\'+doc_name,'r') as file_obj:
             for line in file_obj:
                 test_url = self.url + line
-                # print(test_url)
                 if threading.activeCount() >= self.threads_max:
                     time.sleep(0.7)
                 else:

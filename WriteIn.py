@@ -64,6 +64,16 @@ class writeinmanger():
         except:
             self.db.rollback()
 
+    def writeinsql_file(self, name, url):
+        cursor = self.db.cursor()
+        sql = "INSERT INTO `file` (`name`, `url`) VALUES (%s, %s)"
+        try:
+            cursor.execute(sql, (name, url))
+            # 提交到数据库执行
+            self.db.commit()
+        except:
+            self.db.rollback()
+
 if __name__ =='__main__':
     filename = 'www.qwe.com.txt'
     content = 'qwe/qwe/asdfs.com'

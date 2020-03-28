@@ -1,6 +1,7 @@
 import pymysql
 from configparser import ConfigParser
 import argparse
+import requests
 
 class main_sql():
     def __init__(self):
@@ -75,10 +76,15 @@ class main_sql():
             cursor.execute(commend)
         print("Delete finished.")
 
-
+def check_url(url):
+    r = requests.get(url)
+    print(r.status_code)
+    print(len(r.content))
 if __name__ == "__main__":
-    m = main_sql()
+    #m = main_sql()
     #m.search('filename.txt')
     #m.delete('filename.txt')
     #m.login()
-    m.command_parse()
+    #m.command_parse()
+    url = 'http://www.vulbox.com/example1.zip'
+    check_url(url)
